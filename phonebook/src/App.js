@@ -46,7 +46,7 @@ const Persons = ({ persons, handleDelete}) => {
 const Notification =( { message } ) => {
   const notificationStyle = {
     color: 'white',
-    backgroundColor: 'green',
+    backgroundColor: 'blue',
     fontSize: '20px'
   }
 
@@ -103,6 +103,11 @@ const App = () => {
       personsService.create(personObj).then(returnedPerson => {
         console.log(returnedPerson)
         setPersons(persons.concat(returnedPerson))
+      })
+      .catch(error => {
+        console.log(error.response.data.error)
+        setNotificationMessage(error.response.data.error)
+        return
       })
       setNotificationMessage(`${newName} was added to your directory!`)
       setTimeout(() => {
