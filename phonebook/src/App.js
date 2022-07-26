@@ -100,15 +100,16 @@ const App = () => {
         name: newName,
         number: newNumber,
       }
-      personsService.create(personObj).then(returnedPerson => {
-        console.log(returnedPerson)
-        setPersons(persons.concat(returnedPerson))
-      })
-      .catch(error => {
-        console.log(error.response.data.error)
-        setNotificationMessage(error.response.data.error)
-        return
-      })
+      personsService.create(personObj)
+        .then(returnedPerson => {
+          console.log(returnedPerson)
+          setPersons(persons.concat(returnedPerson))
+        })
+        .catch(error => {
+          console.log(error.response.data.error)
+          setNotificationMessage(error.response.data.error)
+          return
+        })
       setNotificationMessage(`${newName} was added to your directory!`)
       setTimeout(() => {
         setNotificationMessage(null)
@@ -148,7 +149,7 @@ const App = () => {
 
   const handleDelete = id => {
     if (window.confirm(`Are you sure you want to delete ${persons.find(p => p.id === id).name}`)) {
-      console.log('deleteding', id)
+      console.log('deleting', id)
       personsService
         .deletePerson(id)
         .then(response => {
